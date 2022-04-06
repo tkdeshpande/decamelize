@@ -3,7 +3,9 @@ import decamelize from '../index.js';
 
 const times = 100;
 
-const cases = [
+// Test case structure
+// ['name', {text}, '${expected result}']
+const suite = [
 	['decamelize', {text: ''}, ''],
 	['decamelize', {text: 'A'}, 'a'],
 	['decamelize', {text: 'A B'}, 'a b'],
@@ -126,11 +128,11 @@ const cases = [
 	],
 ];
 
-test.each(cases)('%s %s %s', async (a, b, expected) => {
+test.each(suite)('%s %s %s', async (...[, {text, separator, preserveConsecutiveUppercase}, expected]) => {
 	expect(
-		decamelize(b.text, {
-			separator: b.separator,
-			preserveConsecutiveUppercase: b.preserveConsecutiveUppercase,
+		decamelize(text, {
+			separator,
+			preserveConsecutiveUppercase,
 		}),
 	).toBe(expected);
 });
